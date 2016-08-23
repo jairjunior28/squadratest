@@ -1,0 +1,95 @@
+<?php
+$urlPattern = $_SERVER['REQUEST_URI'];
+$formatUrl = function ($descricao,$sigla,$email,$page) use ($urlPattern) {
+    if (!preg_match('/page/', $urlPattern))
+        return $urlPattern .(String) $descricao.'/'.$sigla.'/'.$email. '/page/' . (int) $page;
+    else
+        return preg_replace('@/page/(\d+)@', (String) $descricao.'/'.$sigla.'/'.$email.'/page/' . (int) $page, $urlPattern);
+
+};
+
+$flash = $this->flashMessenger();
+$flash->setMessageOpenFormat('<div%s>
+     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+         &times;
+     </button>
+     <ul><li>')
+    ->setMessageSeparatorString('</li><li>')
+    ->setMessageCloseString('</li></ul></div>');
+echo $flash->render('success', array('alert', 'alert-dismissible', 'alert-success'));
+echo $flash->render('error', array('alert', 'alert-dismissible', 'alert-danger'));
+
+
+?>
+<?php
+if(isset($this->resp))
+    echo $this->resp;
+
+?>
+
+<h3>Pesquisar Sistema  </h3>
+<div class="row">
+<form method="Get" action="<?php echo $this->url('sistemas',array('action'=>'index'));?>">
+    <div class="col-md-4">
+<label>Descriçao </label>
+</div>
+    <div class="col-md-5">
+        <input type="text" name="descricao" size="60" maxlength="100" value="<?php if(isset($this->descricao)) echo $this->descricao;?>">
+        </div>
+    <div class="col-md-12"><br></div>
+    <div class="col-md-4">
+        <label>Sigla </label>
+    </div>
+    <div class="col-md-5">
+            <input type="text" name="sigla" maxlength="10" size="60" value="<?php if(isset($this->sigla)) echo $this->sigla;?>">
+    </div>
+    <div class="col-md-12"><br></div>
+    <div class="col-md-4">
+        <label>E-mail de atendimento do sistema </label>
+    </div>
+    <div class="col-md-5">
+        <input type="text" name="email" maxlength="100" size="60" value="<?php if(isset($this->email)) echo $this->email;?>">
+    </div>
+
+    <div class="col-md-12"></br> </div>
+
+
+    <?php if(isset($this->lista)){ ?>
+
+        <table class="table table-striped table-hover">
+            <tr>
+                <th>Descrição</th>
+                <th>Sigla</th>
+                <th>E-mail de atendimento</th>
+                <th>URL</th>
+                <th>Status</th>
+                <th>Ações</th>
+
+            </tr>
+            <?php foreach ($this->lista as $f): ?>
+            <tr>
+                <td><?php echo $f->getDescricao(); ?></td>
+                <td><?php echo $f->getSigla(); ?></td>
+                <td><?php echo $f->getEmail(); ?></td>
+                <td><?php echo $f->getUrl(); ?></td>
+                <td><?php echo $f->getStatus(); ?></td>
+                <td>
+                       <a href="<?php echo "/sistemas/editar/". $f->getId(); ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
+
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php   echo $this->paginationControl($this->lista, 'sliding', 'paginator', array('route'=>'sistemas/paginator','page'=>$this->page,'descricao'=>$this->descricao,'sigla'=>$this->sigla,'email'=>$this->email));?>
+    <?php } ?>
+
+    <div class="col-md-6">
+    </div>
+    <div class="col-md-6">
+        <input type="submit" value="Pesquisar"  >
+
+        <a href=" <?php echo $this->url('sistemas/default',array('controller'=>'Sistemas','action'=>'limpar'));?>" class="btn btn-default">Limpar<span class="glyphicon glyphicon-play"></span></a>
+        <a href=" <?php echo $this->url('sistemas/default',array('controller'=>'Sistemas','action'=>'cadastrar'));?>" class="btn btn-primary">Novo Sistema<span class="glyphicon glyphicon-play"></span></a>
+
+    </div>
+</form>
+</div>

@@ -1,0 +1,64 @@
+<?php
+if(isset($this->resp))
+    echo $this->resp;
+
+?>
+
+<h3>Incluir Sistema</h3>
+
+
+<div class="row">
+
+<form method="post" >
+    <input type="hidden" name="id">
+    <div class="col-md-12"><label class="label-danger">* Campo Obrigatório</label></div>
+    <div class="col-md-4">
+        <label>
+        Descrição..: *</label>
+    </div>
+    <div class="col-md-5">
+        <input type="text" name="descricao" size="60" maxlength="100" class="input-group">
+    </div>
+    <div class="col-md-12">
+        <br>
+    </div>
+    <div class="col-md-4">
+        <label>Sigla..: *</label>
+    </div>
+    <div class="col-md-5">
+
+        <input type="text" name="sigla" size="60" maxlength="10" class="input-group">
+    </div>
+    <div class="col-md-12">
+        <br>
+    </div>
+    <div class="col-md-4">
+        <label>E-mail de atendimento do sistema..:</label>
+    </div>
+    <div class="col-md-5">
+        <input type="text" name="email" size="60" class="input-group">
+    </div>
+    <div class="col-md-12">
+        <br>
+    </div>
+    <div class="col-md-4">
+        <label>URL..:</label>
+    </div>
+    <div class="col-md-5">
+        <input type="text" name="url" size="60" class="input-group">
+    </div>
+    <div class="col-md-12">
+        <br>
+    </div>
+    <div class="col-md-5"></div>
+    <div class="col-md-6">
+        <input type="submit" name="salvar" value="Salvar">
+        <!-- rota voltar /sistemas/limpar tela de pesquisa-->
+        <a href="<?php echo $this->url('sistemas/default',
+            array('controller' => 'Sistemas', 'action' => 'limpar')); ?>">Voltar</a>
+    </div>
+</div>
+</form>
+<br><br>
+
+<br>

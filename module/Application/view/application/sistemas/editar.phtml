@@ -1,0 +1,149 @@
+<?php
+if(isset($this->resp))
+    echo $this->resp;
+
+?>
+
+<h3>Alterar Sistema</h3>
+
+
+<div class="row">
+<form method="post" action="<?php $this->url('sistemas/default',array('controller'=>'Sistemas','action'=>'editar'))?>">
+    <div class="col-md-12"><label class="label-danger">* Campo Obrigatório</label></div>
+    <div class="col-md-12">
+        Dados do sistema
+
+    </div>
+</div>
+<div class="row">
+
+        <input type="hidden" name="id" value="<?php echo $this->f->getId(); ?>">
+
+
+    <div class="col-md-4">
+        <label>Descricao..: *</label>
+    </div>
+    <div class="col-md-5">
+        <input type="text" name="descricao" size="60" value="<?php echo $this->f->getDescricao(); ?>">
+    </div>
+    <div class="col-md-12">
+        <br>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+    <label>Sigla..: *</label>
+        </div>
+    <div class="col-md-5">
+    <input type="text" name="sigla" size="60" value="<?php echo $this->f->getSigla(); ?>">
+    </div>
+    <div class="col-md-12">
+        <br>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <label>E-mail de atendimento do sistema..:</label>
+</div>
+    <div class="col-md-5">
+    <input type="text" name="email" size="60" value="<?php echo $this->f->getEmail(); ?>">
+
+    </div>
+    <div class="col-md-12">
+        <br>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+    <label>URL..:</label>
+        </div>
+    <div class="col-md-5">
+      <input type="text" name="url" size="60" value="<?php echo $this->f->getUrl(); ?>">
+    </div>
+    <div class="col-md-12">
+        <br>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        Controle do sistema
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <label>Status..: *</label>
+    </div>
+    <div class="col-md-5">
+        <select name="status" class="selectpicker">
+            <option value="<?php echo $this->f->getStatus();?>"><?php print $this->f->getStatus();?></option>
+            <?php if($this->f->getStatus()==="Ativo"){?>
+                <option value="<?php echo "Cancelado";?>"><?php print "Cancelado";?></option><?php }  else {?>
+
+                <option value="<?php echo "Ativo";?>"><?php print "Ativo";?></option><?php } ?>
+
+      </select>
+    </div>
+    <div class="col-md-12">
+        <br>
+    </div>
+
+    </div>
+<div class="row">
+    <div class="col-md-4">
+        <label>Usuário responsável pela última alteração</label>
+    </div>
+    <div class="col-md-5">
+    <input type="readonly" name="usuario"size="60" value="<?php echo $this->f->getUsuario(); ?>">
+
+    </div>
+    <div class="col-md-12">
+        <br>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+    <label>Data última alteração</label>
+        </div>
+    <div class="col-md-5">
+        <?php  $data=(String)$this->f->getData(); ?>
+    <input type="readonly" name="data" size="60" value="<?php echo $data; ?>">
+        </div>
+    <div class="col-md-12">
+        <br>
+    </div>
+</div>
+<div class="row">
+        <div class="col-md-4">
+
+    <label>Justificativa última alteração</label>
+            </div>
+            <div class="col-md-5">
+    <textarea name="justificativaanterior" cols="62" readonly="true"  col="250"><?php echo $this->f->getJustificativa(); ?></textarea>
+    </div>
+    <div class="col-md-12">
+        <br>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+    <label>Nova Justificativa de alteração *..:</label>
+        </div>
+        <div class="col-md-5">
+    <textarea name="justificativa" cols="62" maxlength="500"></textarea>
+            </div>
+    <div class="col-md-12">
+        <br>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-6"></div>
+    <div class="col-md-6">
+    <input type="submit" value="Salvar">
+    <a href="<?php echo $this->url('sistemas',
+        array('controller' => 'Sistemas', 'action' => 'index')); ?>">Voltar</a>
+    </div>
+</form>
+</div>

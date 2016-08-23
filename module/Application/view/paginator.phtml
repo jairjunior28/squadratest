@@ -1,0 +1,60 @@
+<?php
+$urlPattern = $_SERVER['REQUEST_URI'];
+$formatUrl = function ($page) use ($urlPattern) {
+	if (!preg_match('/page/', $urlPattern))
+		return $urlPattern . '/page/' . (int) $page;
+	else
+		return preg_replace('@/page/(\d+)@', '/page/' . (int) $page, $urlPattern);
+
+};
+$url= '/sistemas';
+			  if(isset($descricao))
+				  $url.= '?descricao='. $descricao;
+			  else
+				  $url.='';
+			if(isset($sigla))
+				$url.= '&sigla='.$sigla;
+			else
+				$url.= '';
+			if(isset($email))
+				$url.= '&email='.$email;
+			else
+				$url.= '';
+
+?>
+<?php if ($this->pageCount > 1): ?>
+	<ul class="pagination">
+		<?php if (isset($this->previous)): ?>
+
+
+			<li><a class="current" title="Primeira Página" href="<?php echo $url.'&page='.$this->first;;?>">&laquo; Primeira</a></li>
+
+
+			<li><a href="<?php  echo $url.'&page='.$this->previous;;?>">&laquo; Anterior</a></li>
+		<?php else: ?>
+
+			<li><a class="current" title="Primeira Página" href="<?php echo $url.'&page='.$this->first;?>">&laquo; Primeira</a></li>
+		<?php endif; ?>
+
+		<?php foreach ($this->pagesInRange as $page): ?>
+			<?php if ($page != $this->current): ?>
+
+
+				<li><a href="<?php echo $url.'&page='.$page; ?>"><?php echo $page; ?></a></li>
+			<?php else: ?>
+				<li class="active"><a><?php echo $page; ?></a></li>
+			<?php endif; ?>
+		<?php endforeach; ?>
+
+		<?php if (isset($this->next)): ?>
+
+
+			<li><a href="<?php echo $url. '&page='.$this->next; ?>">pr&oacute;ximo &raquo;</a></li>
+
+
+			<li><a class="current" title="Última Página" href="<?php echo $url. '&page='. $this->last; ?>">&raquo; &Uacute;ltima</a></li>
+		<?php else: ?>
+			<li><a class="current" title="Última Página" href="<?php echo $url. '&page='. $this->last; ?>">&raquo; &Uacute;ltima</a></li>
+		<?php endif; ?>
+	</ul>
+<?php endif; ?>
